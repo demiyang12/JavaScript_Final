@@ -258,7 +258,13 @@ h2 { color: #bf4328; font-size: 1.1rem; margin-bottom: 25px; text-transform: upp
     .legend-item { font-size: 0.8rem; margin-bottom: 3px; }
     .legend-color { width: 10px; height: 10px; }
 
-    /* 4. Last Slide */
-    #step-4 .content-wrapper { align-items: center; }
-    #step-4 div[style*="background"] { width: 85% !important; padding: 30px 20px !important; }
+    /* 4. Last Slide Adjustment */
+    /* 最后一页的“开始旅程”居中 */
+    #step-4 .content-wrapper {
+        align-items: center;
+    }
+    #step-4 div[style*="background"] {
+        width: 85% !important;
+        padding: 30px 20px !important;
+    }
 }
