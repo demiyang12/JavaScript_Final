@@ -1,4 +1,6 @@
-/* Global Settings & Palette Variables */
+/* =========================================
+   1. 全局设置与变量 (Global & Variables)
+   ========================================= */
 :root {
     /* Color Palette */
     --color-header-main: #1a3c5a;        /* Top Nav */
@@ -13,7 +15,12 @@
     --color-text-grey: #888;
 }
 
-body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; width: 100vw; overflow: hidden; background: var(--color-bg-main); }
+body { 
+    margin: 0; padding: 0; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+    height: 100vh; width: 100vw; overflow: hidden; 
+    background: var(--color-bg-main); 
+}
 
 /* --- 1. Header --- */
 .main-header {
@@ -38,6 +45,12 @@ body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "S
 }
 
 /* --- 2. Map --- */
+#map-wrapper {
+    /* 桌面端默认样式：全屏占位 */
+    position: absolute; top: 60px; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+}
+
 #map { width: 100%; height: 100%; z-index: 0; }
 
 /* Back Button Style */
@@ -68,16 +81,16 @@ body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "S
 .marker-pin:hover { transform: scale(1.15); z-index: 999; }
 .marker-gray { background: #95a5a6; }
 
-/* ★★★ Category Colors (修复部分) ★★★ */
-.marker-wishlist.cat-Nature { background: var(--color-sidebar-header); }  /* Teal */
-.marker-wishlist.cat-Culture { background: var(--color-header-main); }    /* Blue */
-.marker-wishlist.cat-Food { background: var(--color-cost-rust); }         /* Orange/Red */
-.marker-wishlist.cat-Stay { background: var(--color-action-gold); }       /* Yellow (修复了这里) */
+/* Category Colors */
+.marker-wishlist.cat-Nature { background: var(--color-sidebar-header); }  
+.marker-wishlist.cat-Culture { background: var(--color-header-main); }    
+.marker-wishlist.cat-Food { background: var(--color-cost-rust); }         
+.marker-wishlist.cat-Stay { background: var(--color-action-gold); }       
 
 /* --- 3. Sidebar Panel --- */
 .sidebar-panel {
     position: absolute; top: 80px; right: 20px; 
-    bottom: 20px; /* 底部对齐 */
+    bottom: 20px; 
     width: 380px;
     background: white; border-radius: 12px;
     display: flex; flex-direction: column;
@@ -85,7 +98,7 @@ body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "S
     overflow: hidden; z-index: 1000;
 }
 
-/* A. Colored Header */
+/* A. Colored Header (Stats Panel) */
 .sidebar-colored-header {
     background: var(--color-sidebar-header); 
     padding: 16px; color: white; flex-shrink: 0;
@@ -160,13 +173,7 @@ body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "S
 .btn-save { flex: 1; padding: 10px; background: var(--color-action-gold); border: none; color: white; border-radius: 6px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(224, 179, 65, 0.3); transition: 0.2s;}
 .btn-save:hover { background: var(--color-action-gold-hover); }
 
-/* Popup */
-.popup-controls { margin-top: 10px; display: flex; gap: 5px; }
-.popup-day-select { flex: 1; padding: 4px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; color: var(--color-text-dark); }
-.popup-add-btn { background: var(--color-action-gold); color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-.popup-add-btn:hover { background: var(--color-action-gold-hover); }
-
-/* Bottom Chart */
+/* Bottom Chart (Desktop) */
 .bottom-panel {
     position: absolute; bottom: 20px; left: 20px; 
     right: 420px; 
@@ -175,3 +182,125 @@ body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "S
 }
 .chart-header { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: var(--color-text-grey); text-transform: uppercase; }
 .chart-container { flex: 1; width: 100%; }
+
+
+/* =========================================================
+   ★★★ MOBILE RESPONSIVE (手机端适配) ★★★
+   ========================================================= */
+@media screen and (max-width: 768px) {
+    
+    /* 1. 将 body 转为 Flex 垂直布局 */
+    body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    /* 2. Header: 高度设为 50px (和Dashboard一致)，字体缩小 */
+    .main-header {
+        order: 1;
+        height: 45px;
+        flex-shrink: 0;
+        padding: 0 15px;
+    }
+    .logo { font-size: 1.2rem; }
+    .avatar-small { width: 28px; height: 28px; }
+
+    /* 3. Sidebar Panel 处理: 使用 display: contents 去掉父级包裹 */
+    .sidebar-panel {
+        display: contents; 
+    }
+
+    /* 4. Stats Panel (统计栏): 放在 Order 2 */
+    .sidebar-colored-header {
+        order: 2;
+        width: 95%;
+        border-radius: 0; /* 去掉圆角 */
+        padding: 10px 10px; /* 紧凑 Padding */
+        flex-shrink: 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        z-index: 20;
+    }
+
+    /* 修复图片中内容显示不全的问题：缩小字体，调整间距 */
+    .stats-row { 
+        margin-bottom: 5px; 
+        align-items: center; /* 垂直居中 */
+    }
+    .stat-group label { font-size: 0.6rem; }
+    .cost-value, .stops-value { font-size: 1.2rem; } /* 字体变小 */
+    
+    .budget-group label { font-size: 0.6rem; }
+    .budget-group input { 
+        width: 60px; /* 缩短输入框宽度 */
+        font-size: 0.9rem; 
+        padding: 2px 4px;
+    }
+
+    /* 日期行调整 */
+    .date-row { 
+        min-height: 30px; 
+        padding: 6px 10px; 
+    }
+    .date-input-group span { font-size: 0.55rem; }
+    .date-input-group input { font-size: 0.85rem; }
+    .days-badge { 
+        padding: 4px 8px; 
+        font-size: 0.75rem; 
+        margin-left: 5px;
+    }
+
+    /* 5. Map (地图): 放在 Order 3，占 40% 高度 */
+    #map-wrapper {
+        order: 3;
+        position: relative; /* 相对定位 */
+        top: auto; left: auto; right: auto; bottom: auto;
+        width: 100%;
+        height: 40vh !important; /* 强制高度 40% */
+        flex-shrink: 0;
+        z-index: 10;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* 地图上的 Back 按钮：放在左上角 */
+    .back-btn {
+        top: 10px;
+        left: 10px;
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+    
+    /* 调整 Leaflet 缩放控件的位置，避开 Back 按钮 */
+    .leaflet-top.leaflet-right {
+        right: 10px !important;
+        top: 50px !important; 
+    }
+
+    /* 6. Itinerary Body (行程单): 放在 Order 4 */
+    .sidebar-body {
+        order: 4;
+        flex: 1; /* 占据剩余所有空间 */
+        width: 100%;
+        background: #fff;
+        overflow-y: auto; /* 允许内部滚动 */
+        padding: 10px;
+    }
+
+    /* 行程项更紧凑 */
+    .trip-item { padding: 10px; margin: 5px 0; }
+    .item-name { font-size: 0.85rem; }
+
+    /* 7. Footer (保存按钮): 放在 Order 5 */
+    .sidebar-footer {
+        order: 5;
+        width: 95%;
+        border-top: 1px solid #eee;
+        padding: 10px;
+    }
+
+    /* 8. 隐藏底部图表 (手机上空间不够) */
+    .bottom-panel {
+        display: none;
+    }
+}

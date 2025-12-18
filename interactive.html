@@ -16,7 +16,7 @@
 <body>
 
     <header class="main-header">
-        <div class="logo">
+        <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
             <i class="fa-solid fa-mountain-sun" style="margin-right:12px; color:var(--color-action-gold)"></i>
             Yunnan Odyssey
         </div>
@@ -28,9 +28,9 @@
     <div id="map-wrapper" style="position: relative; height: calc(100vh - 60px);">
         <div id="map"></div>
         
-        <a href="dashboard.html" class="back-btn">
+        <a href=" " class="back-btn">
             <i class="fa-solid fa-arrow-left"></i> Back to Exploration
-        </a>
+        </a >
     </div>
 
     <div class="sidebar-panel">
@@ -71,7 +71,7 @@
 
         <div class="sidebar-footer">
             <button class="btn-add-day" id="btnAddDay">+ Add Day</button>
-            <button class="btn-save" onclick="alert('Tour Saved successfully!')">Save Tour</button>
+            <button class="btn-save">Save Tour</button>
         </div>
     </div>
 
