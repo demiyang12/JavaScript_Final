@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yunnan Odyssey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="hero-bg">
+        
+        <div class="overlay"></div>
+        
+        <div class="top-controls">
+            <button class="control-btn" id="a11yBtn" onclick="toggleAccessibility()">
+                <i class="fa-solid fa-universal-access"></i>
+            </button>
+            <button class="control-btn" id="langBtn" onclick="toggleLanguage()">
+                <i class="fa-solid fa-language"></i> <span id="langText">CN/EN</span>
+            </button>
+        </div>
+
+        <div class="title-box">
+            <h1 id="mainTitle">Yunnan Odyssey</h1>
+            <p id="subTitle">Plan Your Myth</p>
+        </div>
+
+        <div class="card-container">
+            <a href="storymap.html" class="nav-card">
+                <h3 id="step1Label">Step 1: Inspiration</h3>
+                <h2 id="step1Title">The Ancient Tea Horse Road</h2>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="dashboard.html" class="nav-card">
+                <h3 id="step2Label">Step 2: Intelligence</h3>
+                <h2 id="step2Title">Market & Travel Insights</h2>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="interactive.html" class="nav-card">
+                <h3 id="step3Label">Step 3: Action</h3>
+                <h2 id="step3Title">Build Your Itinerary</h2>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. 多语言配置 ---
+        const translations = {
+            en: {
+                mainTitle: "Yunnan Odyssey",
+                subTitle: "Plan Your Myth",
+                step1Label: "Step 1: Inspiration",
+                step1Title: "The Ancient Tea Horse Road",
+                step2Label: "Step 2: Intelligence",
+                step2Title: "Market & Travel Insights",
+                step3Label: "Step 3: Action",
+                step3Title: "Build Your Itinerary"
+            },
+            cn: {
+                mainTitle: "云南奥德赛",
+                subTitle: "谱写你的神话",
+                step1Label: "第一步：灵感启程",
+                step1Title: "茶马古道文化之旅",
+                step2Label: "第二步：情报分析",
+                step2Title: "市场与旅行大数据",
+                step3Label: "第三步：开始行动",
+                step3Title: "构建你的专属行程"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            // 切换语言状态
+            currentLang = currentLang === 'en' ? 'cn' : 'en';
+            const t = translations[currentLang];
+
+            // 更新 DOM 文本
+            document.getElementById('mainTitle').innerText = t.mainTitle;
+            document.getElementById('subTitle').innerText = t.subTitle;
+            
+            document.getElementById('step1Label').innerText = t.step1Label;
+            document.getElementById('step1Title').innerText = t.step1Title;
+            
+            document.getElementById('step2Label').innerText = t.step2Label;
+            document.getElementById('step2Title').innerText = t.step2Title;
+            
+            document.getElementById('step3Label').innerText = t.step3Label;
+            document.getElementById('step3Title').innerText = t.step3Title;
+
+            // 更新按钮状态
+            const btn = document.getElementById('langBtn');
+            btn.style.background = currentLang === 'cn' ? 'rgba(52, 148, 166, 0.8)' : ''; // 青色高亮
+        }
+
+        // --- 2. 无障碍功能 (高对比度 + 大字体) ---
+        let isA11yActive = false;
+
+        function toggleAccessibility() {
+            isA11yActive = !isA11yActive;
+            const body = document.body;
+            const btn = document.getElementById('a11yBtn');
+
+            if (isA11yActive) {
+                body.classList.add('accessibility-mode');
+                btn.style.background = '#e0b341'; // 黄色高亮
+                btn.style.color = 'black';
+            } else {
+                body.classList.remove('accessibility-mode');
+                btn.style.background = '';
+                btn.style.color = '';
+            }
+        }
+    </script>
+</body>
+</html>
